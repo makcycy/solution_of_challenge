@@ -1,6 +1,6 @@
 
-def setEnv():
+def setEnv(path):
     import os
 
-    credential_path = 'credentials/speech-analysis-312306-6aedd9ae798f.json'
+    credential_path = path
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
