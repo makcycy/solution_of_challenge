@@ -46,7 +46,7 @@ class BaseInferencer:
         self.librosa_stft = partial(librosa.stft, n_fft=self.n_fft, hop_length=self.hop_length, win_length=self.win_length)
         self.librosa_istft = partial(librosa.istft, hop_length=self.hop_length, win_length=self.win_length)
 
-        print("Configurations are as follows: ")
+        # print("Configurations are as follows: ")
         # print(toml.dumps(config))
         # with open((root_dir / f"{time.strftime('%Y-%m-%d')}.toml").as_posix(), "w") as handle:
         #     toml.dump(config, handle)
