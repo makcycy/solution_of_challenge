@@ -29,6 +29,9 @@ class SpeechToText:
             )
         if frameRate is not None:
             self.recogConfig['sample_rate_hertz'] = frameRate
+        self.recogConfig['use_enhanced'] = True
+        self.recogConfig['max_alternatives'] = 1
+
         return self.recogConfig
 
     def transcribe_file(self, speech_file, frameRate = None):
@@ -40,13 +43,17 @@ class SpeechToText:
         audio = speech.RecognitionAudio(content=content)
         config = speech.RecognitionConfig(self._get_recognition_config_params(frameRate))
         operation = client.long_running_recognize(config=config, audio=audio)
-        print("Waiting for operation to complete...")
-        print(operation)
+        # print("Waiting for operation to complete...")
         response = operation.result()
-        result = {
-            'Transcript': response.results[0].alternatives[0].transcript,
-            'Confidence': response.results[0].alternatives[0].confidence
-        }
+        print(f'result length: {len(response.results)}')
+
+        if len(response.results) >= 1:
+            result = {
+                'Transcript': response.results[0].alternatives[0].transcript,
+                'Confidence': response.results[0].alternatives[0].confidence
+            }
+        else:
+            result = {'Transcript': None, 'Confidence': None}
         return result
 
     def transcribe2_gcs(gcs_uri):
@@ -56,7 +63,7 @@ class SpeechToText:
         audio = speech.types.RecognitionAudio(uri=gcs_uri)
         config = speech.types.RecognitionConfig(
             encoding=speech.enums.RecognitionConfig.AudioEncoding.LINEAR16,
-            sample_rate_hertz=8000,
+            sample_rate_hertz=16000,
             audio_channel_count=2,
             enable_speaker_diarization=True,
             enable_word_time_offsets=True,
@@ -74,3 +81,5 @@ class SpeechToText:
             'Confidence': response.results[0].alternatives[0].confidence
         }
         return result
+
+
