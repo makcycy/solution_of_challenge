@@ -8,7 +8,7 @@ def main():
         output_path='dataset/output'
     )
     stt = SpeechToText()
-    result = stt.transcribe_file(speech_file='dataset/output/enhanced_0058/d2.wav')
+    result = stt.transcribe_file(speech_file='dataset/output/enhanced/d2.wav')
     for key in result.keys():
         print(f"{key}: {result[key]}")
 

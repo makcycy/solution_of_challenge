@@ -38,7 +38,7 @@ class SpeechToText:
             content = audio_file.read()
 
         audio = speech.RecognitionAudio(content=content)
-        config = speech.RecognitionConfig(self._get_recognition_config_params(), frameRate)
+        config = speech.RecognitionConfig(self._get_recognition_config_params(frameRate))
         operation = client.long_running_recognize(config=config, audio=audio)
         print("Waiting for operation to complete...")
         print(operation)

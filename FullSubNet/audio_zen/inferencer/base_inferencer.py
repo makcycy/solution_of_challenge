@@ -27,7 +27,7 @@ class BaseInferencer:
         self.model, epoch = self._load_model(config["model"], checkpoint_path, self.device)
         self.inference_config = config["inferencer"]
 
-        self.enhanced_dir = root_dir / f"enhanced_{str(epoch).zfill(4)}"
+        self.enhanced_dir = root_dir / f"enhanced"
         prepare_empty_dir([self.enhanced_dir])
 
         # Acoustics
@@ -47,9 +47,9 @@ class BaseInferencer:
         self.librosa_istft = partial(librosa.istft, hop_length=self.hop_length, win_length=self.win_length)
 
         print("Configurations are as follows: ")
-        print(toml.dumps(config))
-        with open((root_dir / f"{time.strftime('%Y-%m-%d')}.toml").as_posix(), "w") as handle:
-            toml.dump(config, handle)
+        # print(toml.dumps(config))
+        # with open((root_dir / f"{time.strftime('%Y-%m-%d')}.toml").as_posix(), "w") as handle:
+        #     toml.dump(config, handle)
 
     @staticmethod
     def _load_dataloader(dataset_config):
@@ -92,7 +92,7 @@ class BaseInferencer:
         model_checkpoint = torch.load(checkpoint_path, map_location="cpu")
         model_static_dict = model_checkpoint["model"]
         epoch = model_checkpoint["epoch"]
-        print(f"当前正在处理 tar 格式的模型断点，其 epoch 为：{epoch}.")
+        print(f"Loaded the torch model tar, epoch： {epoch}.")
 
         model.load_state_dict(model_static_dict)
         model.to(device)
