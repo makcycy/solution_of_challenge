@@ -1,5 +1,4 @@
 import io
-from credential import setEnv
 from google.cloud import speech_v1p1beta1 as speech
 
 class SpeechToText:
@@ -9,7 +8,7 @@ class SpeechToText:
     def _get_file_type(self):
         return self.speech_file.split('.')[-1]
 
-    def _get_recognition_config_params(self):
+    def _get_recognition_config_params(self, frameRate = None):
         fileType = self._get_file_type()
         if fileType == 'flac':
             self.recogConfig = dict(
@@ -22,19 +21,28 @@ class SpeechToText:
                 encoding=speech.RecognitionConfig.AudioEncoding.MP3,
                 language_code='yue-Hant-HK'
             )
+        elif fileType == 'wav':
+            self.recogConfig = dict(
+                encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+                use_enhanced = True,
+                language_code='yue-Hant-HK'
+            )
+        if frameRate is not None:
+            self.recogConfig['sample_rate_hertz'] = frameRate
         return self.recogConfig
 
-    def transcribe_file(self, speech_file):
+    def transcribe_file(self, speech_file, frameRate = None):
         self.speech_file = speech_file
         client = speech.SpeechClient()
         with io.open(speech_file, "rb") as audio_file:
             content = audio_file.read()
 
         audio = speech.RecognitionAudio(content=content)
-        config = speech.RecognitionConfig(self._get_recognition_config_params())
+        config = speech.RecognitionConfig(self._get_recognition_config_params(), frameRate)
         operation = client.long_running_recognize(config=config, audio=audio)
         print("Waiting for operation to complete...")
-        response = operation.result(timeout=90)
+        print(operation)
+        response = operation.result()
         result = {
             'Transcript': response.results[0].alternatives[0].transcript,
             'Confidence': response.results[0].alternatives[0].confidence
