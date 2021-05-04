@@ -1,5 +1,5 @@
 from google.cloud import storage
-from audio_denoiser import model_denoise
+from audio_preprocessing.audio_denoiser import model_denoise
 from pydub import AudioSegment
 
 class ToCloud:
