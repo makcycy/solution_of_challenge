@@ -140,4 +140,6 @@ class BaseInferencer:
 
             # clnsp102_traffic_248091_3_snr0_tl-21_fileid_268 => clean_fileid_0
             # name = "clean_" + "_".join(name.split("_")[-2:])
-            sf.write(self.enhanced_dir / f"{name}_enhanced.wav", enhanced, samplerate=self.acoustic_config["sr"])
+            print(name)
+            print(self.enhanced_dir)
+            sf.write(f"{self.enhanced_dir}/{name}_enhanced.wav", enhanced, samplerate=self.acoustic_config["sr"])

@@ -1,3 +1,14 @@
+"""
+Citation:
+@misc{hao2020fullsubnet,
+      title={FullSubNet: A Full-Band and Sub-Band Fusion Model for Real-Time Single-Channel Speech Enhancement},
+      author={Xiang Hao and Xiangdong Su and Radu Horaud and Xiaofei Li},
+      year={2020},
+      eprint={2010.15508},
+      archivePrefix={arXiv},
+      primaryClass={eess.AS}
+}"""
+
 import torch
 
 from .FullSubNet.audio_zen.acoustics.feature import mag_phase

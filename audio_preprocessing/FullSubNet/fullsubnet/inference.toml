@@ -18,9 +18,9 @@ path = "audio_preprocessing.FullSubNet.dataset_inference.Dataset"
 
 [dataset.args]
 dataset_dir_list = [
-    "dataset"
+    "dataset/raw"
 ]
-sr = 16000
+sr = 32000
 
 
 [model]

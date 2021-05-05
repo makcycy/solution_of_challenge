@@ -3,6 +3,9 @@ from gcp_services.speech_to_text import SpeechToText
 from audio_preprocessing.audio_denoiser import model_denoise
 from audio_preprocessing.split_audio import SplitWavAudio
 import os
+from gcp_services.sentiment_analysis import sample_analyze_sentiment
+from gcp_services.entities_analysis import sample_analyze_entities
+from gcp_services.text_classification_analysis import sample_classify_text
 
 def stt_by_file(stt_model, root_path, files):
     if isinstance(files, list):
@@ -35,15 +38,20 @@ def main():
     model_denoise(
         output_path='dataset/output'
     )
-    stt = SpeechToText()
-    result = {'filename': [],
-              'stt_result':[]}
-    root_path = 'dataset/output/enhanced'
-    for file in os.listdir(root_path):
-        file, transcript = stt_by_file(stt, root_path, file)
-        result['filename'].append(file)
-        result['stt_result'].append(transcript)
-    print(result)
+    # stt = SpeechToText()
+    # results = {'filename': [],
+    #           'stt_result':[]}
+    # root_path = 'dataset/output/enhanced'
+    # for file in os.listdir(root_path):
+    #     file, transcript = stt_by_file(stt, root_path, file)
+    #     results['filename'].append(file)
+    #     results['stt_result'].append(transcript)
+    # print(results)
+    #
+    # print(sample_analyze_sentiment(results['stt_result'][0]['Transcript']))
+    # print(sample_classify_text(results['stt_result'][0]['Transcript']))
+    # print(sample_analyze_entities(results['stt_result'][0]['Transcript']))
+
 
 
 if __name__ == '__main__':
