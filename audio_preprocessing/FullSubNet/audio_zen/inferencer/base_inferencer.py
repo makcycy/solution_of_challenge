@@ -27,7 +27,7 @@ class BaseInferencer:
         self.model, epoch = self._load_model(config["model"], checkpoint_path, self.device)
         self.inference_config = config["inferencer"]
 
-        self.enhanced_dir = root_dir / f"enhanced"
+        self.enhanced_dir = root_dir
         prepare_empty_dir([self.enhanced_dir])
 
         # Acoustics
@@ -140,6 +140,4 @@ class BaseInferencer:
 
             # clnsp102_traffic_248091_3_snr0_tl-21_fileid_268 => clean_fileid_0
             # name = "clean_" + "_".join(name.split("_")[-2:])
-            print(name)
-            print(self.enhanced_dir)
             sf.write(f"{self.enhanced_dir}/{name}_enhanced.wav", enhanced, samplerate=self.acoustic_config["sr"])
