@@ -20,7 +20,7 @@ path = "audio_preprocessing.FullSubNet.dataset_inference.Dataset"
 dataset_dir_list = [
     "dataset/raw"
 ]
-sr = 32000
+sr = 16000
 
 
 [model]
