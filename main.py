@@ -6,7 +6,11 @@ import os
 from gcp_services.sentiment_analysis import sample_analyze_sentiment
 from gcp_services.entities_analysis import sample_analyze_entities
 from gcp_services.text_classification_analysis import sample_classify_text
+<<<<<<< Updated upstream
 
+=======
+from gcp_services.speech_to_text import SpeechToText
+>>>>>>> Stashed changes
 
 def clean_large_audio(data_path, sec_per_split):
     audioFiles = [file for file in os.listdir(data_path) if not os.path.isdir(os.path.join(data_path, file))]
@@ -25,6 +29,7 @@ def main():
     )
     stt = SpeechToText()
     results = {}
+<<<<<<< Updated upstream
     for file in os.listdir(output_path):
         transcript = stt.transcribe_from_file(os.path.join(output_path, file))
         results[file] = transcript
@@ -33,6 +38,17 @@ def main():
     # print(sample_analyze_sentiment(results['stt_result'][0]['Transcript']))
     # print(sample_classify_text(results['stt_result'][0]['Transcript']))
     # print(sample_analyze_entities(results['stt_result'][0]['Transcript']))
+=======
+    root_path = 'dataset/output/'
+    for file in os.listdir(root_path):
+        stt_result = stt.transcribe_from_file(os.path.join(root_path,file))
+        results[file] = stt_result
+    print(results)
+    #
+    # print(sample_analyze_sentiment(results['note1_enhanced.wav']['Transcript']))
+    # print(sample_classify_text(results['note1_enhanced.wav']['Transcript']))
+    # print(sample_analyze_entities(results['note1_enhanced.wav']['Transcript']))
+>>>>>>> Stashed changes
 
 
 
