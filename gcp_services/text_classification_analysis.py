@@ -18,7 +18,7 @@ def sample_classify_text(text_content):
     # Optional. If not specified, the language is automatically detected.
     # For list of supported languages:
     # https://cloud.google.com/natural-language/docs/languages
-    language = "en"
+    language = "yue-Hant-HK"
     document = {"content": text_content, "type_": type_, "language": language}
 
     response = client.classify_text(request = {'document': document})
