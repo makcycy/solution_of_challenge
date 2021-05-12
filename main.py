@@ -1,5 +1,4 @@
 from credential import setEnv
-from gcp_services.speech_to_text import SpeechToText
 from audio_preprocessing.audio_denoiser import model_denoise
 from audio_preprocessing.split_audio import SplitWavAudio
 import os
